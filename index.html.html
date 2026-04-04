@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 리터러시 자가점검표</title>
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #ffffff;
+  --bg2: #f7f7f5;
+  --bg3: #f0efe8;
+  --text: #1a1a1a;
+  --text2: #6b6b6b;
+  --text3: #999;
+  --border: rgba(0,0,0,0.1);
+  --border2: rgba(0,0,0,0.2);
+  --purple: #534AB7;
+  --purple-light: #EEEDFE;
+  --teal: #1D9E75;
+  --teal-light: #E1F5EE;
+  --blue: #378ADD;
+  --blue-light: #E6F1FB;
+  --coral: #D85A30;
+  --coral-light: #FAECE7;
+  --pink: #D4537E;
+  --pink-light: #FBEAF0;
+  --amber: #BA7517;
+  --amber-light: #FAEEDA;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1a1a1a;
+    --bg2: #242424;
+    --bg3: #2e2e2e;
+    --text: #e8e8e8;
+    --text2: #a0a0a0;
+    --text3: #707070;
+    --border: rgba(255,255,255,0.1);
+    --border2: rgba(255,255,255,0.2);
+    --purple-light: #2a2650;
+    --teal-light: #0a2e22;
+    --blue-light: #0c2a45;
+    --coral-light: #3a1a0c;
+    --pink-light: #3a1528;
+    --amber-light: #3a2205;
+  }
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  padding: 1rem;
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+.page-header {
+  text-align: center;
+  padding: 2.5rem 1rem 2rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--border);
+}
+.page-header h1 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
+}
+.page-header p {
+  font-size: 0.875rem;
+  color: var(--text2);
+  max-width: 520px;
+  margin: 0 auto;
+}
+.page-header .badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: var(--purple-light);
+  color: var(--purple);
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.guide-box {
+  background: var(--bg2);
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 2rem;
+  font-size: 0.8rem;
+  color: var(--text2);
+  line-height: 1.8;
+}
+.guide-box strong { color: var(--text); font-weight: 600; }
+.guide-row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+.guide-chip {
+  font-size: 0.7rem;
+  padding: 2px 10px;
+  border-radius: 6px;
+  background: var(--bg3);
+  color: var(--text2);
+  white-space: nowrap;
+}
+
+.section {
+  margin-bottom: 2.5rem;
+}
+.section-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+.section-num {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+.section-info h2 {
+  font-size: 1rem;
+  font-weight: 600;
+}
+.section-info p {
+  font-size: 0.8rem;
+  color: var(--text2);
+  margin-top: 1px;
+}
+
+.q-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+.q-item:last-child { border-bottom: none; }
+.q-no {
+  font-size: 0.75rem;
+  color: var(--text3);
+  min-width: 22px;
+  text-align: right;
+  padding-top: 3px;
+  flex-shrink: 0;
+}
+.q-text {
+  flex: 1;
+  font-size: 0.875rem;
+  line-height: 1.65;
+  word-break: keep-all;
+}
+.q-btns {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+.q-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text2);
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+.q-btn:hover { background: var(--bg2); border-color: var(--border2); }
+.q-btn.on { background: var(--purple); color: #fff; border-color: var(--purple); }
+
+.action-area {
+  text-align: center;
+  padding: 1.5rem 0 2rem;
+}
+.btn-go {
+  display: inline-block;
+  padding: 12px 40px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  background: var(--purple);
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn-go:hover { background: #3C3489; }
+.btn-go:active { transform: scale(0.97); }
+.action-note {
+  font-size: 0.75rem;
+  color: var(--text3);
+  margin-top: 8px;
+}
+
+.result {
+  display: none;
+  margin-top: 1rem;
+}
+.result.show { display: block; }
+
+.result-header {
+  text-align: center;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 1.5rem;
+}
+.result-header h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.total-wrap {
+  text-align: center;
+  padding: 1.5rem;
+  background: var(--bg2);
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+}
+.total-big {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--purple);
+  line-height: 1;
+}
+.total-max {
+  font-size: 0.9rem;
+  color: var(--text3);
+  margin-top: 2px;
+}
+.total-level {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.total-bar-track {
+  height: 6px;
+  background: var(--bg3);
+  border-radius: 3px;
+  margin-top: 16px;
+  overflow: hidden;
+}
+.total-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  background: var(--purple);
+  transition: width 0.8s ease;
+}
+
+.radar-area {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+  justify-content: center;
+}
+.radar-area svg { flex-shrink: 0; }
+.cards-col {
+  flex: 1;
+  min-width: 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.sc {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: var(--bg2);
+  border-radius: 8px;
+}
+.sc-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.sc-name { flex: 1; font-size: 0.8rem; }
+.sc-val { font-size: 0.95rem; font-weight: 600; }
+.sc-of { font-size: 0.7rem; color: var(--text3); margin-left: 2px; }
+
+.interp-block {
+  margin-top: 2rem;
+}
+.interp-block h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+.interp-card {
+  padding: 14px 18px;
+  margin-bottom: 10px;
+  border-left: 3px solid var(--border);
+  border-radius: 0 8px 8px 0;
+  background: var(--bg2);
+}
+.interp-card .ic-head {
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.ic-tag {
+  font-size: 0.7rem;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-weight: 500;
+}
+.interp-card .ic-body {
+  font-size: 0.8rem;
+  color: var(--text2);
+  line-height: 1.7;
+}
+
+.tip-box {
+  margin-top: 1.5rem;
+  padding: 1rem 1.25rem;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--bg2);
+}
+.tip-box h4 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.tip-box p {
+  font-size: 0.8rem;
+  color: var(--text2);
+  line-height: 1.7;
+}
+
+.footer-note {
+  text-align: center;
+  padding: 2rem 0;
+  font-size: 0.7rem;
+  color: var(--text3);
+  border-top: 1px solid var(--border);
+  margin-top: 2rem;
+  line-height: 1.6;
+}
+
+.btn-reset {
+  display: inline-block;
+  padding: 8px 20px;
+  font-size: 0.8rem;
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text2);
+  cursor: pointer;
+  margin-top: 12px;
+  transition: all 0.15s;
+}
+.btn-reset:hover { background: var(--bg2); }
+
+@media (max-width: 600px) {
+  body { padding: 0.75rem; }
+  .page-header { padding: 1.5rem 0.5rem 1.5rem; }
+  .page-header h1 { font-size: 1.25rem; }
+  .q-item { gap: 6px; }
+  .q-btn { width: 28px; height: 28px; font-size: 0.75rem; border-radius: 6px; }
+  .q-btns { gap: 3px; }
+  .radar-area { flex-direction: column; align-items: center; }
+  .total-big { font-size: 2.5rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="badge">Self-Assessment Tool</div>
+  <h1>AI 리터러시 자가점검표</h1>
+  <p>AI를 얼마나 이해하고, 비판적으로 평가하며, 책임감 있게 활용하고 있는지 스스로 돌아보는 점검 도구입니다.</p>
+</div>
+
+<div class="guide-box">
+  <strong>응답 방법</strong><br>
+  각 문항에 대해 1점(전혀 아니다)부터 5점(매우 그렇다)까지 클릭하세요. 모든 문항에 답하지 않아도 됩니다. 점수보다 중요한 것은 질문을 읽으며 자신의 AI 사용 습관을 돌아보는 과정 자체입니다.
+  <div class="guide-row">
+    <span class="guide-chip">1 = 전혀 아니다</span>
+    <span class="guide-chip">2 = 대체로 아니다</span>
+    <span class="guide-chip">3 = 보통이다</span>
+    <span class="guide-chip">4 = 대체로 그렇다</span>
+    <span class="guide-chip">5 = 매우 그렇다</span>
+  </div>
+</div>
+
+<div id="questionnaire"></div>
+
+<div class="action-area">
+  <button class="btn-go" onclick="showResult()">결과 확인하기</button>
+  <p class="action-note">응답한 문항만으로 결과를 산출합니다</p>
+</div>
+
+<div class="result" id="result">
+  <div class="result-header">
+    <h2>나의 AI 리터러시 점검 결과</h2>
+  </div>
+
+  <div class="total-wrap">
+    <div class="total-big" id="rTotalNum">0</div>
+    <div class="total-max">/ 100점</div>
+    <div class="total-level" id="rTotalLevel"></div>
+    <div class="total-bar-track"><div class="total-bar-fill" id="rTotalBar"></div></div>
+  </div>
+
+  <div class="radar-area">
+    <svg id="radarSvg" width="240" height="240" viewBox="0 0 240 240"></svg>
+    <div class="cards-col" id="rCards"></div>
+  </div>
+
+  <div class="interp-block">
+    <h3>종합 해석</h3>
+    <div class="interp-card" id="rTotalInterp" style="border-left-color:var(--purple);"></div>
+  </div>
+
+  <div class="interp-block">
+    <h3>영역별 해석</h3>
+    <div id="rSectionInterps"></div>
+  </div>
+
+  <div class="tip-box">
+    <h4>이 점검표 활용법</h4>
+    <p>이 도구는 자기 인식을 위한 참고용이며, 객관적 능력 평가가 아닙니다. 3개월 간격으로 다시 점검하면 자신의 변화를 추적할 수 있습니다. 점수가 낮은 영역은 부족함이 아니라 성장의 여지가 있다는 뜻입니다. 가장 낮은 영역 하나를 골라 의식적으로 실천해보세요.</p>
+  </div>
+
+  <div style="text-align:center;">
+    <button class="btn-reset" onclick="resetAll()">처음부터 다시 하기</button>
+  </div>
+</div>
+
+<div class="footer-note">
+  이 점검표는 IBM, OECD, 미국 노동부, 스탠포드, WEF, Anthropic의 AI 리터러시/유창성 프레임워크를 참고하여 구성되었습니다.<br>
+  제작: Claude (Anthropic) | 자유롭게 공유하실 수 있습니다
+</div>
+
+<script>
+var sections = [
+  { key:'understand', title:'이해', sub:'AI의 본질과 한계를 아는가', color:'#534AB7', light:'#EEEDFE',
+    questions:[
+      '나는 AI가 항상 사실만 말하는 것은 아니라는 점을 알고 사용한다.',
+      '나는 AI가 왜 그럴듯하게 말할 수 있는지(확률 기반 생성), 그리고 왜 틀릴 수도 있는지를 어느 정도 이해하고 있다.',
+      '나는 AI를 만능 도구처럼 보기보다, 특정 조건에서 강하고 다른 조건에서 약한 도구로 인식한다.',
+      '나는 AI 모델마다 학습 데이터, 설계 목적, 성능이 다르다는 것을 알고 있다.',
+      '나는 AI의 답변이 \'정답\'이 아니라 \'가장 가능성 높은 응답\'이라는 점을 인식한다.'
+    ]
+  },
+  { key:'verify', title:'검증', sub:'AI의 출력을 비판적으로 평가하는가', color:'#1D9E75', light:'#E1F5EE',
+    questions:[
+      '나는 AI의 답변을 그대로 믿기보다, 사실인지 다시 확인하려 한다.',
+      '나는 AI 답변 안에서 사실(fact), 해석(interpretation), 추정(assumption)을 구분하려고 노력한다.',
+      '나는 중요한 정보일수록 원문, 공식 자료, 신뢰할 수 있는 출처를 통해 교차 검증한다.',
+      '나는 AI가 출처를 제시하면 그 출처가 실제로 존재하는지, 내용이 맞는지 확인한 적이 있다.',
+      '나는 AI의 답변이 지나치게 자신감 있거나 단정적일 때 오히려 의심한다.'
+    ]
+  },
+  { key:'delegate', title:'위임과 소통', sub:'AI에게 적절히 맡기고 명확히 전달하는가', color:'#378ADD', light:'#E6F1FB',
+    questions:[
+      '나는 AI를 사용하기 전에 내가 무엇을 알고 싶은지 어느 정도 정리하고 질문한다.',
+      '나는 AI에게 맡길 일과 스스로 해야 할 일을 구분하여 사용한다.',
+      '나는 AI에게 질문할 때 배경, 맥락, 원하는 형식 등을 구체적으로 전달하려 한다.',
+      '나는 AI의 첫 번째 답변에 만족하지 않으면, 추가 질문이나 수정 요청을 통해 결과를 발전시킨다.',
+      '나는 AI가 잘하는 영역(초안 작성, 요약 등)과 못하는 영역(최신 사실, 감정적 판단 등)을 대략 구분할 수 있다.'
+    ]
+  },
+  { key:'responsible', title:'책임과 윤리', sub:'AI 사용의 영향과 책임을 인식하는가', color:'#D85A30', light:'#FAECE7',
+    questions:[
+      '나는 AI를 사용할 때 편향이나 오해 가능성을 함께 생각한다.',
+      '나는 개인정보나 민감한 내용을 AI에 입력할 때 한 번 더 조심한다.',
+      '나는 AI가 만든 결과를 사용할 때, 그 영향과 책임이 결국 사용자에게 있다는 점을 인식한다.',
+      '나는 AI를 활용한 결과물을 공유할 때, AI의 기여를 적절히 밝히는 편이다.',
+      '나는 AI가 특정 집단에 불리한 결과를 낼 수 있다는 점(편향)을 고려한 적이 있다.'
+    ]
+  },
+  { key:'judgment', title:'자기 판단', sub:'최종 의사결정의 주체를 유지하는가', color:'#D4537E', light:'#FBEAF0',
+    questions:[
+      '나는 AI가 제시한 답변을 참고하되, 최종 결론은 스스로 내리려 한다.',
+      '나는 AI의 답변이 내 판단을 \'돕고\' 있는지, \'대신하고\' 있는지 가끔 점검한다.',
+      '나는 편리함 때문에 내 기준과 생각을 쉽게 넘겨주고 있지 않은지 돌아본다.',
+      '나는 답변이 마음에 든다는 이유만으로 쉽게 신뢰하지 않는다.',
+      '나는 AI에 의존하는 정도가 늘어날수록, 내 독립적 사고 능력을 의식적으로 점검한다.'
+    ]
+  },
+  { key:'habit', title:'학습 습관', sub:'AI와의 상호작용을 통해 성장하는가', color:'#BA7517', light:'#FAEEDA',
+    questions:[
+      '나는 AI를 사용할수록 더 빨리 답을 얻는 일보다, 더 정확히 읽는 일이 중요하다고 느낀다.',
+      '나는 AI와의 대화에서 새로운 관점이나 아이디어를 발견한 경험이 있다.',
+      '나는 AI 사용 경험을 통해 질문하는 방법 자체가 나아졌다고 느낀다.',
+      '나는 AI 기술이 빠르게 변하므로, 새로운 도구나 기능을 주기적으로 살펴본다.',
+      '나는 AI를 \'정답 기계\'가 아니라 \'사고 파트너\'로 활용하려 의식적으로 노력한다.'
+    ]
+  }
+];
+
+var scores = {};
+sections.forEach(function(s) { scores[s.key] = [0,0,0,0,0]; });
+
+var qContainer = document.getElementById('questionnaire');
+var globalQ = 0;
+
+sections.forEach(function(sec, si) {
+  var html = '<div class="section">';
+  html += '<div class="section-head">';
+  html += '<div class="section-num" style="background:' + sec.light + ';color:' + sec.color + ';">' + (si+1) + '</div>';
+  html += '<div class="section-info"><h2>' + sec.title + '</h2><p>' + sec.sub + '</p></div>';
+  html += '</div>';
+
+  sec.questions.forEach(function(q, qi) {
+    globalQ++;
+    var btns = '';
+    for (var v = 1; v <= 5; v++) {
+      btns += '<button class="q-btn" data-sec="' + sec.key + '" data-qi="' + qi + '" data-val="' + v + '" onclick="pick(this)">' + v + '</button>';
+    }
+    html += '<div class="q-item">';
+    html += '<span class="q-no">' + globalQ + '</span>';
+    html += '<span class="q-text">' + q + '</span>';
+    html += '<div class="q-btns">' + btns + '</div>';
+    html += '</div>';
+  });
+
+  html += '</div>';
+  qContainer.insertAdjacentHTML('beforeend', html);
+});
+
+function pick(el) {
+  var sec = el.getAttribute('data-sec');
+  var qi = parseInt(el.getAttribute('data-qi'));
+  var val = parseInt(el.getAttribute('data-val'));
+  scores[sec][qi] = val;
+  var siblings = el.parentElement.querySelectorAll('.q-btn');
+  for (var i = 0; i < siblings.length; i++) siblings[i].classList.remove('on');
+  el.classList.add('on');
+}
+
+function avg(arr) {
+  var filled = arr.filter(function(v) { return v > 0; });
+  if (filled.length === 0) return 0;
+  return filled.reduce(function(a,b) { return a+b; }, 0) / filled.length;
+}
+
+function showResult() {
+  var avgs = sections.map(function(s) { return avg(scores[s.key]); });
+  var answered = 0;
+  sections.forEach(function(s) { scores[s.key].forEach(function(v) { if (v > 0) answered++; }); });
+  if (answered === 0) { alert('최소 1개 이상의 문항에 응답해주세요.'); return; }
+
+  var validAvgs = avgs.filter(function(v) { return v > 0; });
+  var totalAvg = validAvgs.reduce(function(a,b) { return a+b; }, 0) / validAvgs.length;
+  var totalPct = Math.round(totalAvg / 5 * 100);
+
+  var resultEl = document.getElementById('result');
+  resultEl.classList.add('show');
+
+  document.getElementById('rTotalNum').textContent = totalPct;
+  document.getElementById('rTotalBar').style.width = totalPct + '%';
+
+  var levelEl = document.getElementById('rTotalLevel');
+  if (totalPct >= 84) {
+    levelEl.textContent = '높은 수준';
+    levelEl.style.background = '#E1F5EE'; levelEl.style.color = '#0F6E56';
+  } else if (totalPct >= 60) {
+    levelEl.textContent = '양호한 수준';
+    levelEl.style.background = '#E6F1FB'; levelEl.style.color = '#185FA5';
+  } else if (totalPct >= 40) {
+    levelEl.textContent = '성장 중';
+    levelEl.style.background = '#FAEEDA'; levelEl.style.color = '#854F0B';
+  } else {
+    levelEl.textContent = '기초 단계';
+    levelEl.style.background = '#FCEBEB'; levelEl.style.color = '#A32D2D';
+  }
+
+  drawRadar(avgs);
+  drawCards(avgs);
+  drawTotalInterp(totalPct);
+  drawSectionInterps(avgs);
+
+  setTimeout(function() {
+    resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 100);
+}
+
+function drawRadar(avgs) {
+  var svg = document.getElementById('radarSvg');
+  var cx = 120, cy = 120, R = 90;
+  var n = avgs.length;
+  var step = 2 * Math.PI / n;
+  var isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  var gridColor = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.08)';
+  var textColor = isDark ? '#a0a0a0' : '#6b6b6b';
+  var html = '';
+
+  for (var ring = 1; ring <= 5; ring++) {
+    var r = R * ring / 5;
+    var pts = [];
+    for (var i = 0; i < n; i++) {
+      var a = -Math.PI/2 + i * step;
+      pts.push(Math.round((cx + r*Math.cos(a))*10)/10 + ',' + Math.round((cy + r*Math.sin(a))*10)/10);
+    }
+    html += '<polygon points="' + pts.join(' ') + '" fill="none" stroke="' + gridColor + '" stroke-width="0.7"/>';
+  }
+
+  var labels = sections.map(function(s) { return s.title; });
+  for (var i = 0; i < n; i++) {
+    var a = -Math.PI/2 + i * step;
+    html += '<line x1="'+cx+'" y1="'+cy+'" x2="'+(cx+R*Math.cos(a))+'" y2="'+(cy+R*Math.sin(a))+'" stroke="'+gridColor+'" stroke-width="0.7"/>';
+    var lx = cx + (R+20)*Math.cos(a);
+    var ly = cy + (R+20)*Math.sin(a);
+    html += '<text x="'+lx+'" y="'+ly+'" text-anchor="middle" dominant-baseline="central" font-size="11" fill="'+textColor+'" font-family="-apple-system,sans-serif">'+labels[i]+'</text>';
+  }
+
+  var dataPts = [];
+  for (var i = 0; i < n; i++) {
+    var a = -Math.PI/2 + i * step;
+    var r = R * (avgs[i] || 0) / 5;
+    dataPts.push(Math.round((cx+r*Math.cos(a))*10)/10 + ',' + Math.round((cy+r*Math.sin(a))*10)/10);
+  }
+  html += '<polygon points="'+dataPts.join(' ')+'" fill="rgba(83,74,183,0.15)" stroke="#534AB7" stroke-width="1.5"/>';
+
+  for (var i = 0; i < n; i++) {
+    var a = -Math.PI/2 + i * step;
+    var r = R * (avgs[i] || 0) / 5;
+    html += '<circle cx="'+(cx+r*Math.cos(a))+'" cy="'+(cy+r*Math.sin(a))+'" r="4" fill="'+sections[i].color+'" stroke="'+( isDark ? '#1a1a1a' : '#fff')+'" stroke-width="1.5"/>';
+  }
+
+  svg.innerHTML = html;
+}
+
+function drawCards(avgs) {
+  var el = document.getElementById('rCards');
+  var html = '';
+  sections.forEach(function(s, i) {
+    var v = avgs[i] > 0 ? avgs[i].toFixed(1) : '-';
+    html += '<div class="sc"><div class="sc-dot" style="background:'+s.color+';"></div><span class="sc-name">'+s.title+'</span><span class="sc-val">'+v+'</span><span class="sc-of">/ 5</span></div>';
+  });
+  el.innerHTML = html;
+}
+
+function drawTotalInterp(pct) {
+  var el = document.getElementById('rTotalInterp');
+  var msg;
+  if (pct >= 84) {
+    msg = '<div class="ic-head">높은 수준의 AI 리터러시</div><div class="ic-body">AI를 이해하고, 비판적으로 평가하며, 책임감 있게 활용하는 역량이 고루 갖추어져 있습니다. 이 수준에서는 자신의 경험을 주변과 나누고, 조직이나 커뮤니티에서 AI 활용 문화를 이끄는 역할을 해보시길 권합니다. 다만 높은 점수가 곧 완벽함을 의미하지는 않습니다. AI 기술은 빠르게 변하므로 지속적인 업데이트가 필요합니다.</div>';
+  } else if (pct >= 60) {
+    msg = '<div class="ic-head">양호한 수준의 AI 리터러시</div><div class="ic-body">대부분의 영역에서 기본기를 갖추고 있습니다. 상대적으로 낮은 영역에 집중하여 균형 잡힌 리터러시를 완성해보세요. 레이더 차트에서 안쪽으로 들어간 영역이 바로 성장 기회입니다. 해당 영역의 아래 해석을 참고하시길 바랍니다.</div>';
+  } else if (pct >= 40) {
+    msg = '<div class="ic-head">성장 중인 AI 리터러시</div><div class="ic-body">AI에 대한 기본적인 인식은 있으나, 비판적 검증과 책임 있는 사용 측면에서 의식적인 노력이 필요합니다. 가장 높은 점수를 받은 영역을 강점으로 삼고, 가장 낮은 영역 하나를 골라 한 달간 의식적으로 실천해보세요. 작은 변화가 전체 리터러시를 끌어올립니다.</div>';
+  } else {
+    msg = '<div class="ic-head">기초 단계의 AI 리터러시</div><div class="ic-body">AI 사용 경험은 있지만 체계적인 리터러시 역량은 아직 초기 단계입니다. 이것은 부끄러운 일이 아니라 자연스러운 출발점입니다. 먼저 \'이해\' 영역부터 시작해보세요. AI가 왜 틀릴 수 있는지 이해하는 것만으로도 사용의 질이 크게 달라집니다.</div>';
+  }
+  el.innerHTML = msg;
+}
+
+var interpTexts = {
+  understand: {
+    high: 'AI의 작동 원리와 한계에 대한 이해가 탄탄합니다. AI가 확률 기반으로 응답을 생성한다는 점, 모델마다 차이가 있다는 점을 인식하고 계십니다. 이 이해력은 다른 모든 역량의 토대가 됩니다.',
+    mid: 'AI의 기본적인 한계는 알고 있지만, 작동 원리(확률적 생성, 모델 간 차이 등)에 대한 이해를 더 깊이하면 AI를 더 전략적으로 활용할 수 있습니다. Anthropic의 무료 AI Fluency 코스를 추천합니다.',
+    low: 'AI를 도구로 인식하는 것에서 한 걸음 더 나아가, AI가 \'왜\' 그럴듯하게 말하면서도 틀릴 수 있는지 그 원리를 이해하면 사용의 질이 크게 달라집니다. AI는 정답을 아는 것이 아니라 가장 그럴듯한 다음 단어를 예측하는 시스템입니다.'
+  },
+  verify: {
+    high: 'AI 출력물에 대한 비판적 평가 능력이 뛰어납니다. 사실과 해석과 추정을 구분하고, 출처를 교차 검증하는 습관은 AI 시대의 핵심 역량입니다.',
+    mid: '확인 의지는 있으나, 체계적인 검증 습관으로 발전시키면 좋겠습니다. 특히 AI가 제시하는 출처의 실존 여부를 확인하는 습관, AI가 지나치게 단정적으로 말할 때 의심하는 습관을 들여보세요.',
+    low: 'AI의 답변을 있는 그대로 수용하는 경향이 있습니다. AI는 존재하지 않는 출처를 만들어내거나, 사실과 추측을 자연스럽게 섞어 답변할 수 있습니다. \'정말 그런가?\' 한 번 더 묻는 습관부터 시작해보세요.'
+  },
+  delegate: {
+    high: 'AI와의 협업 설계 능력이 우수합니다. 맡길 일과 직접 할 일을 구분하고, 맥락을 잘 전달하며, 반복적 대화를 통해 결과를 발전시키는 것은 가장 효과적인 AI 활용 방식입니다.',
+    mid: 'AI를 활용하는 기본기는 갖추고 있습니다. 다음 단계로 \'첫 답변을 발전시키는 후속 질문\'과 \'AI에게 맥락과 제약 조건을 구체적으로 전달하는 기술\'을 연습해보세요. 같은 AI라도 질문 방식에 따라 결과가 크게 달라집니다.',
+    low: 'AI에게 단순히 질문을 던지고 답을 받는 패턴에 머물러 있을 수 있습니다. 질문 전에 목적을 정리하고, AI의 답변을 출발점으로 삼아 대화를 이어가는 연습이 도움이 됩니다.'
+  },
+  responsible: {
+    high: 'AI 사용의 윤리적 측면에 대한 인식이 높습니다. 개인정보 보호, 편향 인식, AI 기여 투명성, 결과에 대한 책임 의식이 고루 갖추어져 있습니다.',
+    mid: '책임 의식의 기본은 있으나, 편향 인식이나 AI 기여 공개 같은 구체적 실천 영역을 더 의식적으로 살펴보면 좋겠습니다. AI 결과물을 공유할 때 AI의 기여를 밝히는 것부터 시작해보세요.',
+    low: 'AI 사용의 편리함에 집중하느라 윤리적 측면을 놓치고 있을 수 있습니다. AI에 민감 정보를 입력하는 습관, AI 결과물의 편향 가능성, 결과에 대한 최종 책임 등을 돌아보세요. 특히 개인정보 입력은 즉시 주의가 필요한 영역입니다.'
+  },
+  judgment: {
+    high: 'AI에 대한 건강한 거리감을 유지하고 있습니다. AI를 참고 도구로 활용하면서도 최종 판단의 주체를 자신에게 두는 것은 AI 리터러시의 궁극적 목표입니다.',
+    mid: 'AI의 도움을 받되 스스로 판단하려는 의지가 있습니다. 다만 \'마음에 드는 답변을 쉽게 신뢰하는\' 경향이 없는지, AI 의존도가 서서히 높아지고 있지 않은지 정기적으로 점검해보세요.',
+    low: 'AI의 답변을 최종 결론으로 받아들이는 경향이 보입니다. AI는 사고의 보조 도구이지, 의사결정의 대리인이 아닙니다. \'이 답변이 마음에 드는 이유가 정확해서인가, 편해서인가?\'를 스스로 물어보세요.'
+  },
+  habit: {
+    high: 'AI와의 상호작용을 통해 지속적으로 성장하는 태도를 갖추고 있습니다. 질문력 향상, 새로운 도구 탐색, 사고 파트너로서의 활용은 AI 유창성의 최상위 단계입니다.',
+    mid: 'AI를 통한 학습 경험이 있으나, 이를 체계적인 성장 습관으로 발전시킬 여지가 있습니다. AI 사용 후 \'이 대화에서 무엇을 배웠는가\'를 잠깐 돌아보는 습관을 추천합니다.',
+    low: 'AI를 주로 빠른 답변을 얻는 도구로 사용하고 있습니다. AI와의 대화 자체가 학습의 기회가 될 수 있다는 관점의 전환이 필요합니다. 속도보다 깊이에 초점을 맞춰보세요.'
+  }
+};
+
+function drawSectionInterps(avgs) {
+  var el = document.getElementById('rSectionInterps');
+  var html = '';
+  sections.forEach(function(sec, i) {
+    var v = avgs[i];
+    var tagStyle, tagLabel;
+    if (v === 0) { tagLabel = '미응답'; tagStyle = 'background:var(--bg3);color:var(--text3);'; }
+    else if (v >= 4.2) { tagLabel = '우수'; tagStyle = 'background:#E1F5EE;color:#0F6E56;'; }
+    else if (v >= 3.0) { tagLabel = '양호'; tagStyle = 'background:#E6F1FB;color:#185FA5;'; }
+    else if (v >= 2.0) { tagLabel = '보통'; tagStyle = 'background:#FAEEDA;color:#854F0B;'; }
+    else { tagLabel = '개선 필요'; tagStyle = 'background:#FCEBEB;color:#A32D2D;'; }
+
+    var txt;
+    if (v === 0) txt = '이 영역에는 응답하지 않았습니다.';
+    else if (v >= 4.2) txt = interpTexts[sec.key].high;
+    else if (v >= 3.0) txt = interpTexts[sec.key].mid;
+    else txt = interpTexts[sec.key].low;
+
+    html += '<div class="interp-card" style="border-left-color:'+sec.color+';">';
+    html += '<div class="ic-head">'+sec.title+' <span class="ic-tag" style="'+tagStyle+'">'+tagLabel+'</span></div>';
+    html += '<div class="ic-body">'+txt+'</div>';
+    html += '</div>';
+  });
+  el.innerHTML = html;
+}
+
+function resetAll() {
+  sections.forEach(function(s) { scores[s.key] = [0,0,0,0,0]; });
+  var allBtns = document.querySelectorAll('.q-btn');
+  for (var i = 0; i < allBtns.length; i++) allBtns[i].classList.remove('on');
+  document.getElementById('result').classList.remove('show');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>
